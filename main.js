@@ -9,7 +9,10 @@ var app = express();
 const client = new Client();
 
 
-var load_message = "";
+var load_message = {
+    "from": from,
+    "body": body
+  }
 
 
 client.on('qr', qr => {
@@ -19,12 +22,14 @@ client.on('qr', qr => {
 client.on('ready', () => {
     console.log('Client is ready!');
 });
+
 client.on('message',message => {
     //save the message to json file
-    console.log(message.body);
-    load_message = message.body;
-    
+    load_message.body = message.body;
+    load_message.from = message.from;
+    console.log(load_message);   
 })
+
 
 app.get('/message', function (req, res) {
     res.send(load_message);
