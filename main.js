@@ -23,7 +23,6 @@ client.on('message',message => {
     //save the message to json file
     console.log(message.body);
     load_message = message.body;
-    message.reply('Mandy is busy !');
     
 })
 
