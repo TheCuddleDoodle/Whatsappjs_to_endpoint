@@ -5,8 +5,16 @@ var express = require('express');
 //express client
 var app = express();
 app.set('port', (process.env.PORT || 5000))
+
 //whatsapp Client
-const client = new Client();
+const client = new Client({
+    puppeteerLaunchOptions: {
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+        ]}
+});
+            
 
 
 // var heroku = " dosb.oi80.3@gmail.com";
