@@ -8,7 +8,7 @@ app.set('port', (process.env.PORT || 5000))
 
 //whatsapp Client
 const client = new Client({
-    puppeteerLaunchOptions: {
+    puppeteer: {
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox'
@@ -21,7 +21,9 @@ const client = new Client({
 
 
 client.on('qr', qr => {
-    qrcode.generate(qr, {small: true});
+    //qr code to png image
+    
+
 });
 
 client.on('ready', () => {
