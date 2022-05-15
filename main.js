@@ -4,15 +4,12 @@ var express = require('express');
 
 //express client
 var app = express();
-
+app.set('port', (process.env.PORT || 5000))
 //whatsapp Client
 const client = new Client();
 
 
-var load_message = {
-    "from": from,
-    "body": body
-  }
+// var heroku = " dosb.oi80.3@gmail.com";
 
 
 client.on('qr', qr => {
@@ -30,17 +27,14 @@ client.on('message',message => {
     console.log(load_message);   
 })
 
-
 app.get('/message', function (req, res) {
-    res.send(load_message);
+    res.json(load_message);
  })
 
 
 
-var server = app.listen(8081, function () {
+var server = app.listen(app.get('port'), function () {
     var host = server.address().address
-    var port = server.address().port
-    
-    console.log("Example app listening at http://%s:%s", host, port)
+    console.log("Node app is running at localhost:"+host + app.get('port'))
  })
 client.initialize();
