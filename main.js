@@ -1,12 +1,14 @@
 const qrcode = require('qrcode-terminal');
-const { Client } = require('whatsapp-web.js');
+var qr = require('qr-image');
+const fs = require('fs');
+const { Client,LegacySessionAuth,LocalAuth } = require('whatsapp-web.js');
 var express = require('express');
 
 //express client
 var app = express();
 app.set('port', (process.env.PORT || 5000))
 
-//whatsapp Client
+// whatsapp Client
 const client = new Client({
     puppeteer: {
         args: [
@@ -14,17 +16,29 @@ const client = new Client({
             '--disable-setuid-sandbox'
         ]}
 });
-            
+
+
+
+
+
+var load_message = {
+    "from": "" ,
+    "body": "",
+}
 
 
 // var heroku = " dosb.oi80.3@gmail.com";
 
 
+
 client.on('qr', qr => {
-    //qr code to png image
-    
+    console.log('QR RECEIVED', qr);
+    //save qr code to file
+    var qr_svg = qr.image(qr, { type: 'svg' });
+    qr_svg.pipe(require('fs').createWriteStream('auth.svg'));
 
 });
+
 
 client.on('ready', () => {
     console.log('Client is ready!');
@@ -34,8 +48,12 @@ client.on('message',message => {
     //save the message to json file
     load_message.body = message.body;
     load_message.from = message.from;
-    console.log(load_message);   
+    console.log(load_message);      
 })
+//send png
+app.get('/authmandy',function(req,res){
+    res.sendFile('./auth.svg');
+    });
 
 app.get('/message', function (req, res) {
     res.json(load_message);
