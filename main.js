@@ -1,5 +1,5 @@
-const qrcode = require('qrcode-terminal');
-var qr = require('qr-image');
+// const qrcode = require('qrcode-terminal');
+// var qr = require('qr-image');
 const fs = require('fs');
 const { Client,LegacySessionAuth,LocalAuth } = require('whatsapp-web.js');
 var express = require('express');
@@ -34,8 +34,8 @@ var load_message = {
 client.on('qr', qr => {
     console.log('QR RECEIVED', qr);
     //save qr code to file
-    var qr_svg = qr.image(qr, { type: 'svg' });
-    qr_svg.pipe(require('fs').createWriteStream('auth.svg'));
+//     var qr_svg = qr.image(qr, { type: 'svg' });
+//     qr_svg.pipe(require('fs').createWriteStream('auth.svg'));
 
 });
 
