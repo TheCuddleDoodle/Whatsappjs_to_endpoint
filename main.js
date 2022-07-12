@@ -27,7 +27,7 @@ var load_message = {
 }
 
 
-// var heroku = " dosb.oi80.3@gmail.com";
+
 
 
 
